@@ -27,7 +27,6 @@ This project is under GNU license - look at the file [LICENSE.md](LICENSE.md) fo
 
 ## Expresiones de Gratitud 🎁
 
-* Comenta a otros sobre este proyecto 📢
-- Comenta a otros sobre este proyecto 📢
-- Da las gracias públicamente 🤓
-- Sígueme en [Twitter](https://twitter.com/AsensiFj) 🐦
+- Tell others about this project 📢
+- Give thanks publicly 🤓
+- Follow me on [Twitter](https://twitter.com/AsensiFj) 🐦
