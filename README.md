@@ -25,7 +25,7 @@ The basic idea is to get third-party data using Python and Kafka, process that d
 
 This project is under GNU license - look at the file [LICENSE.md](LICENSE.md) for more details.
 
-## Expresiones de Gratitud 🎁
+## Acknowledgments 🎁
 
 - Tell others about this project 📢
 - Give thanks publicly 🤓
