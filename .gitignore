@@ -111,3 +111,5 @@ build
 config.py
 consumer.py
 producer.py
+alembic/versions/*
+alembic.ini
