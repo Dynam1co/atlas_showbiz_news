@@ -3,26 +3,32 @@
 Define attributes to do API request.
 """
 
+from datetime import datetime
 from typing import List, Optional
 from pydantic import BaseModel
+from datetime import datetime, date
 
-class UserBase(BaseModel):
+
+class ItemBase(BaseModel):
     """Common attributes while creating o reading data."""
 
-    email: str
+    id: str
+    media_type: str    
+    tmdb_id: int    
+    vote_average: Optional[float] = 0
+    poster_path: Optional[str] = ''
+    time_window: str
 
 
-class UserCreate(UserBase):
-    """Common attributes while creating o reading data."""
-
-    password: str
-
-
-class User(UserBase):
+class Item(ItemBase):
     """Used when reading data, when returning it from the API."""
 
-    id: int
-    is_active: bool
+    insert_datetime: datetime
+    insert_date: date
+    published_in_twitter: bool    
+    imdb_id: Optional[str] = ''
+    title: Optional[str] = ''
+    overview: Optional[str] = ''
 
     class Config:
         """Tell the Pydantic model to read the data even if it is not a dict."""

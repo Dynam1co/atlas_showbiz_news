@@ -16,6 +16,7 @@ The basic idea is to get third-party data using Python and Kafka, process that d
 
 - kafka-python: Python client for the Apache Kafka [Git Hub](https://github.com/dpkp/kafka-python).
 - FastAPI: Web framework for builgin APIs with Python [Web](https://fastapi.tiangolo.com/).
+- Alembic: Manage database migrations. [Documentation](https://alembic.sqlalchemy.org/en/latest/).
 
 ## References 📖
 
