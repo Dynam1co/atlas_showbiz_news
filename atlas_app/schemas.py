@@ -20,6 +20,15 @@ class ItemBase(BaseModel):
     time_window: str
 
 
+class ItemUpdate(BaseModel):
+    """Used when update item."""
+    
+    published_in_twitter: Optional[bool] = False
+    imdb_id: Optional[str] = ''
+    title: Optional[str] = ''
+    overview: Optional[str] = ''
+
+
 class Item(ItemBase):
     """Used when reading data, when returning it from the API."""
 
