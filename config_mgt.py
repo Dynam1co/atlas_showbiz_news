@@ -12,3 +12,11 @@ def getConnectionString() -> str:
         cfg.POSTGRE_PORT,
         cfg.POSTGRE_DATABASE
     )
+
+def getTmdbBaseUrl() -> str:
+    """Return TMDB base API url."""
+    return cfg.TMDB_BASE_URL
+
+def getTmdbApiKey() -> str:
+    """Return TMDB API key."""
+    return cfg.TMDB_API_KEY
