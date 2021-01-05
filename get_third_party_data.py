@@ -18,8 +18,11 @@ def get_tmdb_data(ws_name) -> dict:
 
     payload={}
     headers = {}
-
-    response = requests.request("GET", url, headers=headers, data=payload)
+    
+    try:    
+        response = requests.request("GET", url, headers=headers, data=payload)
+    except requests.exceptions.RequestException as e:
+        return {}
 
     return json.loads(response.text)
 
