@@ -39,6 +39,17 @@ def create_item(item: schemas.ItemBase, db: Session = Depends(get_db)):
     return crud.create_item(db=db, item=item)
 
 
+@app.patch("/items/{item_id}", response_model=schemas.Item)
+def update_item(updated_item: schemas.ItemUpdate, item_id: str, db: Session = Depends(get_db)):
+    """Update Item."""
+    db_item = crud.get_item(db=db, item_id=item_id)
+
+    if db_item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+
+    return crud.update_item(db=db, item=updated_item, stored_item=db_item)
+
+
 @app.get("/items/", response_model=List[schemas.Item])
 def read_items(db: Session = Depends(get_db)):
     """Read Items."""
