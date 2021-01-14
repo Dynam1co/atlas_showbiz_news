@@ -18,6 +18,18 @@ class ItemBase(BaseModel):
     vote_average: Optional[float] = 0
     poster_path: Optional[str] = ''
     time_window: str
+    imdb_id: Optional[str] = ''
+    title: Optional[str] = ''
+    overview: Optional[str] = ''
+
+
+class ItemUpdate(BaseModel):
+    """Used when update item."""
+    
+    published_in_twitter: Optional[bool] = False
+    imdb_id: Optional[str] = ''
+    title: Optional[str] = ''
+    overview: Optional[str] = ''
 
 
 class Item(ItemBase):
@@ -26,9 +38,9 @@ class Item(ItemBase):
     insert_datetime: datetime
     insert_date: date
     published_in_twitter: bool    
-    imdb_id: Optional[str] = ''
-    title: Optional[str] = ''
-    overview: Optional[str] = ''
+    #imdb_id: Optional[str] = ''
+    #title: Optional[str] = ''
+    #overview: Optional[str] = ''
 
     class Config:
         """Tell the Pydantic model to read the data even if it is not a dict."""

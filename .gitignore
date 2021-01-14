@@ -109,7 +109,7 @@ build
 
 *.csv
 config.py
-consumer.py
-producer.py
+# consumer.py
+# producer.py
 alembic/versions/*
 alembic.ini
