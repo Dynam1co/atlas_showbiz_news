@@ -11,9 +11,12 @@ producer = KafkaProducer(
     value_serializer=lambda x: dumps(x).encode('utf-8')
 )
 
+
 def job():
     """Get data from TMDB and send to Kafka topic."""
     data = tmdb.get_trending('day', 'movie')
+    data['time_window'] = 'day'
+    
     producer.send('topic_test', data)
 
 
