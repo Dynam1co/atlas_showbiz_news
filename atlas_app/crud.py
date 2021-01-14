@@ -47,7 +47,10 @@ def create_item(db: Session, item: schemas.ItemBase):
         tmdb_id=item.tmdb_id,
         vote_average=item.vote_average,
         poster_path=item.poster_path,
-        time_window=item.time_window
+        time_window=item.time_window,        
+        title=item.title,
+        imdb_id=item.imdb_id,
+        overview=item.overview
     )
 
     db.add(db_item)
