@@ -20,3 +20,7 @@ def getTmdbBaseUrl() -> str:
 def getTmdbApiKey() -> str:
     """Return TMDB API key."""
     return cfg.TMDB_API_KEY
+
+def getFastApiPostItemUrl() -> str:
+    """Return post api url in fast api.""" 
+    return cfg.FAST_API_BASE_URL + cfg.FAST_API_POST_ITEM_URL

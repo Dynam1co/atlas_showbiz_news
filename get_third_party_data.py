@@ -2,6 +2,7 @@
 import requests
 import config_mgt as conf
 import json
+import uuid
 
 def get_detail(id, type) -> dict:
     """Connect to third party API to download details of the item."""
@@ -32,17 +33,39 @@ def get_tmdb_data(ws_name) -> dict:
 
     return json.loads(response.text)
 
-def fill_item_data(item):
+def fast_api_post_item(payload) -> dict:
+    """Insert new item in postgres using fast api."""
+    url = conf.getFastApiPostItemUrl()
+
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    try:
+        response = requests.request("POST", url, headers=headers, data=payload)
+    except requests.exceptions.RequestException as e:
+        return {}
+
+    return json.loads(response.text)
+
+def fill_item_data_and_post(item):
     """Fill al fields of an item."""
-    # item['media_type']
-    # item['poster_path']
-    # item['vote_average']
-    # item['id']
-    # item['time_window']
+    result = {}
 
     # Detail data of an intem
     data = get_detail(item['id'], item['media_type'])
 
-    data['imdb_id']
-    data['overview']
-    data['title']
+    result['imdb_id'] = data['imdb_id']
+    result['overview'] = data['overview']
+    result['title'] = data['title']
+    result['tmdb_id'] = item['id']
+    result['id'] = str(uuid.uuid1())
+
+    result['media_type'] = item['media_type']
+    result['poster_path'] = item['poster_path']
+    result['vote_average'] = item['vote_average']    
+    result['time_window'] = item['time_window']
+
+    json_object = json.dumps(result)
+        
+    print(fast_api_post_item(json_object))
