@@ -2,7 +2,6 @@
 from json import dumps
 from kafka import KafkaProducer
 import schedule
-import time
 import get_third_party_data as tmdb
 from datetime import date
 
@@ -52,4 +51,3 @@ schedule.every().hour.do(job)
 
 while 1:
     schedule.run_pending()
-    time.sleep(1)

@@ -59,7 +59,7 @@ def update_item(updated_item: schemas.ItemUpdate, item_id: str, db: Session = De
 
 
 @app.get("/items/", response_model=List[schemas.Item])
-def read_items(db: Session = Depends(get_db), item_type: Optional[str] = None, date_insert: Optional[datetime.date] = None, period: Optional[str] = None):
+def read_items(db: Session = Depends(get_db), item_type: Optional[str] = None, date_insert: Optional[datetime.date] = None, period: Optional[str] = None, twitter_published: Optional[bool] = False):
     """Read Items."""        
     results = crud.get_items(db)
 
@@ -71,6 +71,8 @@ def read_items(db: Session = Depends(get_db), item_type: Optional[str] = None, d
 
     if period:
         results = [x for x in results if x.time_window == period]
+
+    results = [x for x in results if x.published_in_twitter == twitter_published]
 
     return results
 
