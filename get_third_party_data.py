@@ -75,10 +75,10 @@ def fill_item_data_and_post(item):
         
     print(fast_api_post_item(json_object))
 
-def get_stored_data(date, period) -> dict:
+def get_stored_data(date, period, tw_published) -> dict:
     """Get filterded data from Fast API."""
     url = conf.getFastApiPostItemUrl()
-    url += f'?date_insert={date}&period={period}'
+    url += f'?date_insert={date}&period={period}&twitter_published={tw_published}'
 
     payload={}
     headers = {}
@@ -87,5 +87,24 @@ def get_stored_data(date, period) -> dict:
         response = requests.request("GET", url, headers=headers, data=payload)
     except requests.exceptions.RequestException as e:
         return {}
+
+    return json.loads(response.text)
+
+def update_twitter_published(id, value) -> dict:
+    """Set published in Twitter."""
+    url = conf.getFastApiPostItemUrl()
+    url += f'{id}'
+
+    payload = {
+        "published_in_twitter": value,
+    }
+
+    payload = json.dumps(payload)
+
+    headers = {
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.request("PATCH", url, headers=headers, data=payload)
 
     return json.loads(response.text)

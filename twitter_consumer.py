@@ -3,6 +3,7 @@ from kafka import KafkaConsumer
 from json import loads
 import get_third_party_data as mgt
 import twitter_mgt as twMgt
+import time
 
 # Define kafka consumer that contacts with localhost and is suscribed to the topic topic_test
 consumer = KafkaConsumer(
@@ -20,3 +21,7 @@ for event in consumer:
 
     for item in event_data:
         twMgt.post_tweet(item)
+        mgt.update_twitter_published(item['id'], True)
+        
+        print(f"Tweet sent: {item['title']}")
+        time.sleep(10)

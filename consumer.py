@@ -21,4 +21,4 @@ for event in consumer:
     for item in event_data['results']:            
         item['time_window'] = time_window
 
-        mgt.fill_item_data_and_post(item)
+        mgt.fill_item_data_and_post(item)        

@@ -2,7 +2,6 @@
 from json import dumps
 from kafka import KafkaProducer
 import schedule
-import time
 import get_third_party_data as tmdb
 from datetime import date
 
@@ -18,16 +17,15 @@ def job():
     date_to_get = date.today()
     period_type = 'day'
 
-    data = tmdb.get_stored_data(date_to_get, period_type)
+    data = tmdb.get_stored_data(date=date_to_get, period=period_type, tw_published=False)
 
     producer.send('twitter_topic', data)    
 
 
-# schedule.every(1).minutes.do(job)
+schedule.every(1).minutes.do(job)
 # schedule.every().hour.do(job)
-schedule.every().day.at("12:30").do(job)
-schedule.every().day.at("17:30").do(job)
+# schedule.every().day.at("12:30").do(job)
+# schedule.every().day.at("17:30").do(job)
 
 while 1:
     schedule.run_pending()
-    time.sleep(1)
