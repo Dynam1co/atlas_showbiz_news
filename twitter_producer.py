@@ -22,10 +22,10 @@ def job():
     producer.send('twitter_topic', data)    
 
 
-schedule.every(1).minutes.do(job)
+# schedule.every(1).minutes.do(job)
 # schedule.every().hour.do(job)
-# schedule.every().day.at("12:30").do(job)
-# schedule.every().day.at("17:30").do(job)
+schedule.every().day.at("12:30").do(job)
+schedule.every().day.at("17:30").do(job)
 
 while 1:
     schedule.run_pending()
