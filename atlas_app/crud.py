@@ -1,7 +1,7 @@
 """All API methods."""
 
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.sqltypes import Date
+from sqlalchemy.sql.sqltypes import Date, Integer
 from . import models, schemas
 
 
@@ -37,6 +37,14 @@ def get_items(db: Session):
 def get_item_by_date(db: Session, dt_insert: Date):
     """Search items by insertion date."""
     return db.query(models.Item).filter(models.Item.insert_date == dt_insert).all()
+
+
+def get_item_by_date_and_tmdbid(db: Session, dt_insert: Date, tmdb_id: Integer):
+    """Search items by insertion date and tmdb id."""
+    return db.query(models.Item).filter(
+        models.Item.insert_date == dt_insert,
+        models.Item.tmdb_id == tmdb_id
+    ).first()
 
 
 def create_item(db: Session, item: schemas.ItemBase):

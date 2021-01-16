@@ -4,6 +4,7 @@ from kafka import KafkaProducer
 import schedule
 import time
 import get_third_party_data as tmdb
+from datetime import date
 
 # Create producer that connects of our local instance of kafka
 producer = KafkaProducer(
@@ -14,14 +15,39 @@ producer = KafkaProducer(
 
 def job():
     """Get data from TMDB and send to Kafka topic."""
-    data = tmdb.get_trending('day', 'movie')
-    data['time_window'] = 'day'
+    time = 'day'
+
+    # Movies day
+    data = tmdb.get_trending(time, 'movie')
+    data['time_window'] = time
     
     producer.send('topic_test', data)
 
+    # TV day
+    tv = tmdb.get_trending(time, 'tv')
+    tv['time_window'] = time
 
-schedule.every(1).minutes.do(job)
-# schedule.every().hour.do(job)
+    producer.send('topic_test', tv)    
+
+    # Fridays download week trending
+    if date.today().weekday() == 4:
+        time = 'week'
+
+        # Movies
+        data = tmdb.get_trending(time, 'movie')
+        data['time_window'] = time
+        
+        producer.send('topic_test', data)
+
+        # TV
+        tv = tmdb.get_trending(time, 'tv')
+        tv['time_window'] = time
+
+        producer.send('topic_test', tv)
+
+
+# schedule.every(1).minutes.do(job)
+schedule.every().hour.do(job)
 # schedule.every().day.at("10:30").do(job)
 
 while 1:
