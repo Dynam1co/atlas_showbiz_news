@@ -59,7 +59,7 @@ def update_item(updated_item: schemas.ItemUpdate, item_id: str, db: Session = De
 
 
 @app.get("/items/", response_model=List[schemas.Item])
-def read_items(db: Session = Depends(get_db), item_type: Optional[str] = None, date_insert: Optional[str] = None, period: Optional[str] = None):
+def read_items(db: Session = Depends(get_db), item_type: Optional[str] = None, date_insert: Optional[datetime.date] = None, period: Optional[str] = None):
     """Read Items."""        
     results = crud.get_items(db)
 
@@ -67,7 +67,7 @@ def read_items(db: Session = Depends(get_db), item_type: Optional[str] = None, d
         results = [x for x in results if x.media_type == item_type]
 
     if date_insert:
-        results = [x for x in results if x.insert_date == date_insert]
+        results = [x for x in results if x.insert_date == date_insert]    
 
     if period:
         results = [x for x in results if x.time_window == period]

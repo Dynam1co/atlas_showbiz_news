@@ -74,3 +74,18 @@ def fill_item_data_and_post(item):
     json_object = json.dumps(result)
         
     print(fast_api_post_item(json_object))
+
+def get_stored_data(date, period) -> dict:
+    """Get filterded data from Fast API."""
+    url = conf.getFastApiPostItemUrl()
+    url += f'?date_insert={date}&period={period}'
+
+    payload={}
+    headers = {}
+
+    try:    
+        response = requests.request("GET", url, headers=headers, data=payload)
+    except requests.exceptions.RequestException as e:
+        return {}
+
+    return json.loads(response.text)

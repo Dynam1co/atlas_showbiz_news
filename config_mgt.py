@@ -24,3 +24,7 @@ def getTmdbApiKey() -> str:
 def getFastApiPostItemUrl() -> str:
     """Return post api url in fast api.""" 
     return cfg.FAST_API_BASE_URL + cfg.FAST_API_POST_ITEM_URL
+
+def getTwitterData():
+    """Return twitter api data."""
+    return cfg.CONSUMER_KEY, cfg.CONSUMER_SECRET, cfg.ACCESS_KEY, cfg.ACCESS_SECRET
