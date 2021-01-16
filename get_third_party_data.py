@@ -55,12 +55,17 @@ def fill_item_data_and_post(item):
     # Detail data of an intem
     data = get_detail(item['id'], item['media_type'])
 
-    result['imdb_id'] = data['imdb_id']
-    result['overview'] = data['overview']
-    result['title'] = data['title']
+    if 'imdb_id' in data:
+        result['imdb_id'] = data['imdb_id']    
+
+    if item['media_type'] == 'movie':
+        result['title'] = data['title']
+    else:
+        result['title'] = data['name']
+
     result['tmdb_id'] = item['id']
     result['id'] = str(uuid.uuid1())
-
+    result['overview'] = data['overview']
     result['media_type'] = item['media_type']
     result['poster_path'] = item['poster_path']
     result['vote_average'] = item['vote_average']    
