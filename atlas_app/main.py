@@ -42,7 +42,9 @@ def create_item(item: schemas.ItemBase, db: Session = Depends(get_db)):
     db_item = crud.get_item_by_date_and_tmdbid(db, datetime.date.today(), item.tmdb_id)
 
     if db_item:
-        raise HTTPException(status_code=400, detail="Item already registered")
+        print(f"Item: {item.title} already registered. {datetime.datetime.now()}")
+        # raise HTTPException(status_code=400, detail="Item already registered")
+        return db_item
 
     return crud.create_item(db=db, item=item)
 
@@ -86,3 +88,15 @@ def read_item(item_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Item not found")
 
     return db_item
+
+
+@app.post("/tokens/", response_model=schemas.Token, summary='Create Token')
+def create_token(token: schemas.TokenBase, db: Session = Depends(get_db)):
+    """Create Token."""
+    return crud.create_token(db=db, token=token)
+
+
+@app.get("/tokens/", response_model=schemas.Token, summary='Get latest Token')
+def read_tokens(db: Session = Depends(get_db)):
+    """Read Items."""        
+    return crud.get_last_token(db)    

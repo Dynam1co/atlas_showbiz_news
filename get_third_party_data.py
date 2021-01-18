@@ -1,4 +1,5 @@
 """Download data from third party API."""
+from json.decoder import JSONDecodeError
 import requests
 import config_mgt as conf
 import json
@@ -72,8 +73,11 @@ def fill_item_data_and_post(item):
     result['time_window'] = item['time_window']
 
     json_object = json.dumps(result)
-        
-    print(fast_api_post_item(json_object))
+
+    try:  
+        print(fast_api_post_item(json_object))
+    except JSONDecodeError as e:
+        print('Error in insert')
 
 def get_stored_data(date, period, tw_published) -> dict:
     """Get filterded data from Fast API."""

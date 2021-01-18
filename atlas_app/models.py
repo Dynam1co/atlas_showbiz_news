@@ -6,6 +6,7 @@ from sqlalchemy.sql.schema import Index
 from sqlalchemy.dialects.postgresql import UUID
 from .database import Base
 import datetime
+import uuid
 from uuid import uuid4
 
 
@@ -26,3 +27,13 @@ class Item(Base):
     imdb_id = Column(String, default='')
     overview = Column(String, default='')
     time_window = Column(String)
+
+class Token(Base):
+    """Token contains info for publish in Blogger."""
+
+    __tablename__ = 'blogger_token'
+
+    id = Column(String, primary_key=True, index=True, default=str(uuid.uuid1()))
+    insert_datetime = Column(DateTime, default=datetime.datetime.now())
+    access_token = Column(String)
+    refresh = Column(String)

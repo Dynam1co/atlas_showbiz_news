@@ -46,3 +46,23 @@ class Item(ItemBase):
         """Tell the Pydantic model to read the data even if it is not a dict."""
 
         orm_mode = True
+
+
+class TokenBase(BaseModel):
+    """Common attributes while creating o reading data."""
+
+    # id: str
+    access_token: str
+    refresh: str
+
+
+class Token(TokenBase):
+    """Used when reading data, when returning it from the API."""
+
+    id: str
+    insert_datetime: datetime
+
+    class Config:
+        """Tell the Pydantic model to read the data even if it is not a dict."""
+
+        orm_mode = True

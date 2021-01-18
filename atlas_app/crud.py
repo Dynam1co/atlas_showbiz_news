@@ -1,8 +1,11 @@
 """All API methods."""
 
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.expression import desc
 from sqlalchemy.sql.sqltypes import Date, Integer
 from . import models, schemas
+import uuid
+from uuid import uuid4
 
 
 def get_item(db: Session, item_id: str):
@@ -65,3 +68,21 @@ def create_item(db: Session, item: schemas.ItemBase):
     db.commit()
     db.refresh(db_item)
     return db_item
+
+
+def create_token(db: Session, token: schemas.TokenBase):
+    """Insert new token into database."""
+    db_token = models.Token(
+        access_token=token.access_token,
+        refresh=token.refresh
+    )
+
+    db.add(db_token)
+    db.commit()
+    db.refresh(db_token)
+    return db_token
+
+
+def get_last_token(db: Session):
+    """Return last token from database."""
+    return db.query(models.Token).order_by(desc(models.Token.insert_datetime)).first()
