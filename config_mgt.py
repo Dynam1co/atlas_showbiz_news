@@ -28,3 +28,35 @@ def getFastApiPostItemUrl() -> str:
 def getTwitterData():
     """Return twitter api data."""
     return cfg.CONSUMER_KEY, cfg.CONSUMER_SECRET, cfg.ACCESS_KEY, cfg.ACCESS_SECRET
+
+def getBloggerGrantType() -> str:
+    """Return grant type from config."""
+    return cfg.BLOGGER_GRANT_TYPE
+
+def getBloggerClientId() -> str:
+    """Return client id from config."""
+    return cfg.BLOGGER_CLIENT_ID
+
+def getBloggerClientSecret() -> str:
+    """Return client secret from config."""
+    return cfg.BLOGGER_CLIENT_SECRET
+
+def getBlogerAuthUrl() -> str:
+    """Get google auth url."""
+    return cfg.BLOGGER_AUTH_URL
+
+def getBloggerBlogId() -> str:
+    """Get google blog id."""
+    return cfg.BLOGGER_BLOG_ID
+
+def getBloggerPostEndpoint() -> str:
+    """Return endpoint for post in Blogger."""
+    return cfg.BLOGGER_API_URL + cfg.BLOGGER_BLOG_ID + cfg.BLOGGER_API_POST_URL
+
+def getFastApiLatestTokenUrl() -> str:
+    """Return token url."""
+    return cfg.FAST_API_BASE_URL + cfg.FAST_API_GET_TOKEN_URL
+
+def getFastApiBloggerPostUrl() -> str:
+    """Return blogger post api url."""
+    return cfg.FAST_API_BASE_URL + cfg.FAST_API_BLOGGER_POST_URL
