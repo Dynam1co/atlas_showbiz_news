@@ -100,3 +100,15 @@ def create_token(token: schemas.TokenBase, db: Session = Depends(get_db)):
 def read_tokens(db: Session = Depends(get_db)):
     """Read Items."""        
     return crud.get_last_token(db)    
+
+
+@app.post("/blogger_posts/", response_model=schemas.BloggerPost, summary='Create Blogger post')
+def create_blogger_post(post: schemas.BloggerPostBase, db: Session = Depends(get_db)):
+    """Create Blogger post."""
+    return crud.create_blogger_post(db=db, post=post)
+
+
+@app.get("/blogger_posts/", response_model=List[schemas.BloggerPost], summary='Get list of Blogger posts')
+def read_blogger_post(db: Session = Depends(get_db)):
+    """Read Blogger posts."""
+    return crud.get_blogger_posts(db=db)

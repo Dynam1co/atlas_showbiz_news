@@ -66,3 +66,26 @@ class Token(TokenBase):
         """Tell the Pydantic model to read the data even if it is not a dict."""
 
         orm_mode = True
+
+
+class BloggerPostBase(BaseModel):
+    """Common attributes while creating o reading data."""
+
+    id: str
+    published_datetime: datetime
+    updated_datetime: datetime
+    post_url: str
+    blog_id: str
+    title: str
+    content: str
+    image_url: str
+    labels: str
+
+
+class BloggerPost(BloggerPostBase):
+    """Used when reading data, when returning it from the API."""
+
+    class Config:
+        """Tell the Pydantic model to read the data even if it is not a dict."""
+
+        orm_mode = True

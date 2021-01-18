@@ -86,3 +86,28 @@ def create_token(db: Session, token: schemas.TokenBase):
 def get_last_token(db: Session):
     """Return last token from database."""
     return db.query(models.Token).order_by(desc(models.Token.insert_datetime)).first()
+
+
+def create_blogger_post(db: Session, post: schemas.BloggerPostBase):
+    """Insert new blogger post into database."""
+    db_blogger_post = models.BloggerPost(
+        id=post.id,
+        published_datetime=post.published_datetime,
+        updated_datetime=post.updated_datetime,
+        post_url=post.post_url,
+        blog_id=post.blog_id,
+        title=post.title,
+        content=post.content,
+        image_url=post.image_url,
+        labels=str(post.labels)
+    )
+
+    db.add(db_blogger_post)
+    db.commit()
+    db.refresh(db_blogger_post)
+    return db_blogger_post
+
+
+def get_blogger_posts(db: Session):
+    """Return all bloger posts from de database."""
+    return db.query(models.BloggerPost).all()
