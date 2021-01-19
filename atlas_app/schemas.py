@@ -5,6 +5,7 @@ Define attributes to do API request.
 
 from datetime import datetime
 from typing import List, Optional
+from uuid import UUID
 from pydantic import BaseModel
 from datetime import datetime, date
 
@@ -101,7 +102,7 @@ class BloggerItemBase(BaseModel):
     title: str = ''
     imdb_id: Optional[str] = ''
     overview: Optional[str] = ''
-    labels: List[str] = []
+    labels: Optional[str] = ''
 
 
 class BloggerItemUpdate(BaseModel):
@@ -119,7 +120,7 @@ class BloggerItem(BloggerItemBase):
 
     post_url: str
     blog_id: str
-    id: str
+    id: UUID
     insert_datetime: datetime
 
     class Config:

@@ -60,7 +60,8 @@ class BloggerItem(Base):
 
     __tablename__ = 'blogger_item'
 
-    id = Column(String, primary_key=True, index=True, default=str(uuid.uuid1()))
+    # id = Column(String, primary_key=True, index=True, default=str(uuid.uuid1()))
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     insert_datetime = Column(DateTime, default=datetime.datetime.now())
     media_type = Column(String)
     tmdb_id = Column(Integer, default=0)

@@ -6,7 +6,7 @@ from sqlalchemy.sql.functions import mode
 from sqlalchemy.sql.sqltypes import Date, Integer
 from . import models, schemas
 import uuid
-from uuid import uuid4
+from uuid import UUID, uuid4
 from typing import Optional
 
 
@@ -134,8 +134,9 @@ def create_blogger_item(db: Session, blogit: schemas.BloggerItemBase):
     return db_blogger_item
 
 
-def get_blogger_item(db: Session, item_id: str):
+def get_blogger_item(db: Session, item_id: UUID):
     """Return data for a single Item."""
+    item_id = str(item_id)
     return db.query(models.BloggerItem).filter(models.BloggerItem.id == item_id).first()
 
 

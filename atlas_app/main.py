@@ -3,7 +3,7 @@
 from typing import List
 from typing import Optional
 import datetime
-
+from uuid import UUID
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.sqltypes import Date
@@ -128,18 +128,20 @@ def read_blogger_items(db: Session = Depends(get_db), tmdb_id: Optional[str] = N
 
 
 @app.patch("/blogger_items/{item_id}", response_model=schemas.BloggerItem)
-def update_blogger_item(updated_item: schemas.BloggerItemUpdate, item_id: str, db: Session = Depends(get_db)):
+def update_blogger_item(updated_item: schemas.BloggerItemUpdate, item_id: UUID, db: Session = Depends(get_db)):
     """Update Item."""
+    item_id = str(item_id)
+
     db_item = crud.get_blogger_item(db=db, item_id=item_id)
 
     if db_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
 
-    return crud.update_blogger_item(db=db, item=updated_item, stored_item=db_item)
+    return crud.update_blogger_item(db=db, blogit=updated_item, stored_item=db_item)
 
 
 @app.get("/blogger_items/{item_id}", response_model=schemas.BloggerItem)
-def read_blogger_item(item_id: str, db: Session = Depends(get_db)):
+def read_blogger_item(item_id: UUID, db: Session = Depends(get_db)):
     """Read single blogger item."""
     db_item = crud.get_blogger_item(db=db, item_id=item_id)
 
