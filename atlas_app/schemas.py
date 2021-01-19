@@ -89,3 +89,40 @@ class BloggerPost(BloggerPostBase):
         """Tell the Pydantic model to read the data even if it is not a dict."""
 
         orm_mode = True
+
+
+class BloggerItemBase(BaseModel):
+    """Common attributes while creating o reading data."""
+        
+    media_type: str = ''
+    tmdb_id: str = ''
+    vote_average: Optional[float] = 0
+    poster_path: Optional[str] = ''
+    title: str = ''
+    imdb_id: Optional[str] = ''
+    overview: Optional[str] = ''
+    labels: List[str] = []
+
+
+class BloggerItemUpdate(BaseModel):
+    """Used when update item."""
+    
+    imdb_id: Optional[str] = ''
+    overview: Optional[str] = ''
+    vote_average: Optional[float] = 0    
+    post_url: Optional[str] = ''
+    blog_id: Optional[str] = ''
+
+
+class BloggerItem(BloggerItemBase):
+    """Used when reading data, when returning it from the API."""
+
+    post_url: str
+    blog_id: str
+    id: str
+    insert_datetime: datetime
+
+    class Config:
+        """Tell the Pydantic model to read the data even if it is not a dict."""
+
+        orm_mode = True
