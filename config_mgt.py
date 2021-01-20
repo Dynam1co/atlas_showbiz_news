@@ -60,3 +60,7 @@ def getFastApiLatestTokenUrl() -> str:
 def getFastApiBloggerPostUrl() -> str:
     """Return blogger post api url."""
     return cfg.FAST_API_BASE_URL + cfg.FAST_API_BLOGGER_POST_URL
+
+def getFastApiBloggerItemUrl() -> str:
+    """Return blogger item api url."""
+    return cfg.FAST_API_BASE_URL + cfg.FAST_API_BLOGGER_ITEM_URL

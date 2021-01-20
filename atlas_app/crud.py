@@ -2,10 +2,12 @@
 
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import desc
+from sqlalchemy.sql.functions import mode
 from sqlalchemy.sql.sqltypes import Date, Integer
 from . import models, schemas
 import uuid
-from uuid import uuid4
+from uuid import UUID, uuid4
+from typing import Optional
 
 
 def get_item(db: Session, item_id: str):
@@ -111,3 +113,58 @@ def create_blogger_post(db: Session, post: schemas.BloggerPostBase):
 def get_blogger_posts(db: Session):
     """Return all bloger posts from de database."""
     return db.query(models.BloggerPost).all()
+
+
+def create_blogger_item(db: Session, blogit: schemas.BloggerItemBase):
+    """Insert new blogger item into database."""
+    db_blogger_item = models.BloggerItem(
+        media_type=blogit.media_type,
+        tmdb_id=blogit.tmdb_id,
+        vote_average=blogit.vote_average,
+        poster_path=blogit.poster_path,
+        title=blogit.title,
+        imdb_id=blogit.imdb_id,
+        overview=blogit.overview,
+        labels=blogit.labels
+    )
+
+    db.add(db_blogger_item)
+    db.commit()
+    db.refresh(db_blogger_item)
+    return db_blogger_item
+
+
+def get_blogger_item(db: Session, item_id: UUID):
+    """Return data for a single Item."""
+    item_id = str(item_id)
+    return db.query(models.BloggerItem).filter(models.BloggerItem.id == item_id).first()
+
+
+def update_blogger_item(db: Session, blogit: schemas.BloggerItemUpdate, stored_item: schemas.BloggerItem):
+    """Update a single Blogger Item."""
+    if blogit.imdb_id != '':
+        stored_item.imdb_id = blogit.imdb_id     
+
+    if blogit.overview != '':
+        stored_item.overview = blogit.overview
+
+    if blogit.vote_average != 0:
+        stored_item.vote_average = blogit.vote_average
+
+    if blogit.post_url != '':
+        stored_item.post_url = blogit.post_url
+
+    if blogit.blog_id != '':
+        stored_item.blog_id = blogit.blog_id
+    
+    db.commit()
+    db.refresh(stored_item)
+    return stored_item
+
+
+def get_blogger_items(db: Session, tmdb_id: Optional[str] = None):
+    """Return data for all Items."""
+    if tmdb_id:
+        return db.query(models.BloggerItem).filter(models.BloggerItem.tmdb_id == tmdb_id).all()
+
+    return db.query(models.BloggerItem).all()
