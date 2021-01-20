@@ -1,6 +1,7 @@
 """Download data from third party API."""
 from json.decoder import JSONDecodeError
 import requests
+from sqlalchemy.sql.expression import label
 import config_mgt as conf
 import json
 import uuid
@@ -207,13 +208,16 @@ def create_blogger_item(item) -> dict:
 
 def create_blogger_post_item(blog_item) -> BlogPost:
     """Create blogger post using google api."""
-    content = f'<h2>Puntuación: {blog_item["vote_average"]}</h2><br>'
-    content += f'<h2>Sinopsis:<br>{blog_item["overview"]}</h2>'
+    labels = []
+    labels = list(blog_item['labels'].strip("]['").split(','))
+
+    content = f'<h2>Puntuación: {blog_item["vote_average"]}</h2>'
+    content += f'<h2>Sinopsis:</h2>{blog_item["overview"]}'
 
     my_post = BlogPost(
         title=blog_item['title'],
         content=content,
-        labels=blog_item['labels'],
+        labels=labels,
         image_url=f'https://www.themoviedb.org/t/p/original{blog_item["poster_path"]}'
     )
 
