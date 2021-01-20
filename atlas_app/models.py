@@ -53,3 +53,23 @@ class BloggerPost(Base):
     content = Column(String, default='')
     image_url = Column(String, default='')
     labels = Column(String, default='')
+
+
+class BloggerItem(Base):
+    """Google Blogger Item."""
+
+    __tablename__ = 'blogger_item'
+
+    # id = Column(String, primary_key=True, index=True, default=str(uuid.uuid1()))
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    insert_datetime = Column(DateTime, default=datetime.datetime.now())
+    media_type = Column(String)
+    tmdb_id = Column(Integer, default=0)
+    vote_average = Column(Float, default=0)
+    poster_path = Column(String, default='')
+    title = Column(String, default='')
+    imdb_id = Column(String, default='')
+    overview = Column(String, default='')
+    post_url = Column(String, default='')
+    blog_id = Column(String, default='')
+    labels = Column(String, default='')

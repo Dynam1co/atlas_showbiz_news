@@ -46,14 +46,14 @@ class BlogPost():
         }
 
         response = requests.request("POST", url, headers=headers, data=payload)
-
+        
         json_object = json.loads(response.text)
 
         if 'error' in json_object:
             if 'status' in json_object['error']:
                 if json_object['error']['status'] == 'UNAUTHENTICATED':
                     my_token.do_refresh_token()
-                    self.create_blogger_post(my_token)
+                    return self.create_blogger_post(my_token)
 
         return json_object
 
