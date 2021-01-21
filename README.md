@@ -4,7 +4,7 @@ With this project I intend to cover various topics and use different current too
 
 ## Starting 🚀
 
-The basic idea is to get third-party data using Python and Kafka, process that data, store it in DDBB using microservices, and publish Tweets by reading that data. Everything automatically.
+The basic idea is to get third-party data using Python and Kafka, process that data, store it in DDBB using microservices, and publish Tweets and post in Blogger by reading that data. Everything automatically.
 
 ## Used Tools 🛠️
 - Docker: for manage Kafka consumers and producers.
@@ -12,7 +12,7 @@ The basic idea is to get third-party data using Python and Kafka, process that d
 - Postgre: to store data
 - AWS (Rds): to host the database
 
-## Libraries
+## Libraries ☔️
 
 - kafka-python: Python client for the Apache Kafka [Git Hub](https://github.com/dpkp/kafka-python).
 - FastAPI: Web framework for builgin APIs with Python [Web](https://fastapi.tiangolo.com/)
@@ -27,6 +27,49 @@ The basic idea is to get third-party data using Python and Kafka, process that d
 ## License 📄
 
 This project is under GNU license - look at the file [LICENSE.md](LICENSE.md) for more details.
+
+## Use 🧩
+
+Description of the main scripts.
+
+Read third party API:
+
+- [consumer.py](kafka_mgt/consumer.py)
+- [producer.py](kafka_mgt/producer.py)
+
+
+
+Publish into Twitter:
+
+- [twitter_producer.py](kafka_mgt/twitter_producer.py)
+- [twitter_consumer.py](kafka_mgt/twitter_consumer.py)
+
+
+
+Publish into Blogger:
+
+- [blogger_item_consumer.py](kafka_mgt/blogger_item_consumer.py)
+- [blogger_item_producer.py](kafka_mgt/blogger_item_producer.py)
+
+
+
+Blogger token management:
+
+- [blogger_oauth.py](misc/blogger_oauth.py)
+
+
+
+Blogger post class:
+
+- [blogger_post.py](misc/blogger_post.py)
+
+
+
+Script with common functions:
+
+- [get_third_party_data.py](misc/get_third_party_data.py)
+
+
 
 ## Acknowledgments 🎁
 

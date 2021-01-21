@@ -2,7 +2,7 @@
 from json import dumps
 from kafka import KafkaProducer
 import schedule
-import get_third_party_data as tmdb
+from misc import get_third_party_data as tmdb
 from datetime import date
 
 # Create producer that connects of our local instance of kafka
@@ -22,9 +22,10 @@ def job():
     producer.send('blogger_item_topic', data)    
 
 
-# schedule.every().hour.do(job)
-# schedule.every(1).minutes.do(job)
-schedule.every(15).seconds.do(job)
+if __name__ == "__main__":
+    # schedule.every().hour.do(job)
+    # schedule.every(1).minutes.do(job)
+    schedule.every(15).seconds.do(job)
 
-while 1:
-    schedule.run_pending()
+    while True:
+        schedule.run_pending()

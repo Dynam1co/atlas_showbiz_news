@@ -1,6 +1,6 @@
 """Manage Blogger oauth."""
 import requests
-import config_mgt as conf
+from conf import config_mgt as conf
 import json
 
 class BloggerToken():
