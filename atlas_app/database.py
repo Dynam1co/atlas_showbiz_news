@@ -10,7 +10,7 @@ current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfra
 parent_dir = os.path.dirname(current_dir)
 sys.path.insert(0, parent_dir)
 
-import config_mgt as conf
+from conf import config_mgt as conf
 
 SQLALCHEMY_DATABASE_URL = conf.getConnectionString()
 

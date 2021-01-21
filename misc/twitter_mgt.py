@@ -1,7 +1,7 @@
 """Twitter management."""
 
+from conf import config_mgt as conf
 import tweepy
-import config_mgt as conf
 import requests
 import os
 

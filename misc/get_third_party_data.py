@@ -1,11 +1,11 @@
 """Download data from third party API."""
 from json.decoder import JSONDecodeError
-import requests
 from sqlalchemy.sql.expression import label
-import config_mgt as conf
+from conf import config_mgt as conf
+from misc.blogger_post import BlogPost
 import json
 import uuid
-from blogger_post import BlogPost
+import requests
 
 def get_detail(id, type) -> dict:
     """Connect to third party API to download details of the item."""

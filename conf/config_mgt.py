@@ -1,6 +1,5 @@
 """Configuration management."""
-
-import config as cfg
+from conf import config as cfg
 
 
 def getConnectionString() -> str:

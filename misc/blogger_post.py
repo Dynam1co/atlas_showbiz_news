@@ -1,10 +1,8 @@
 """Blogger post entity."""
 import requests
-from sqlalchemy.sql.expression import label
-import config_mgt as conf
+from conf import config_mgt as conf
+from misc import blogger_oauth as ba
 import json
-import blogger_oauth as ba
-import datetime
 
 class BlogPost():
     """Blogger post."""

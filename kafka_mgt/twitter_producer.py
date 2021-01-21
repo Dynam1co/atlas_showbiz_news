@@ -1,9 +1,9 @@
 """Schedule Twitter Kafka producer and send to topic."""
 from json import dumps
 from kafka import KafkaProducer
-import schedule
-import get_third_party_data as tmdb
+from misc import get_third_party_data as tmdb
 from datetime import date
+import schedule
 
 # Create producer that connects of our local instance of kafka
 producer = KafkaProducer(
@@ -22,10 +22,11 @@ def job():
     producer.send('twitter_topic', data)    
 
 
-# schedule.every(1).minutes.do(job)
-# schedule.every().hour.do(job)
-schedule.every().day.at("12:30").do(job)
-schedule.every().day.at("17:30").do(job)
+if __name__ == "__main__":    
+    # schedule.every(1).minutes.do(job)
+    # schedule.every().hour.do(job)
+    schedule.every().day.at("12:30").do(job)
+    schedule.every().day.at("17:30").do(job)
 
-while 1:
-    schedule.run_pending()
+    while True:
+        schedule.run_pending()
